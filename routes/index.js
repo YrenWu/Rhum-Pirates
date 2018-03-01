@@ -10,6 +10,11 @@ router.get('/how-much', (req, res, next) => {
   pirateCtrl.howMuch();
 });
 
+router.get('/drunk', (req, res, next) => {
+  res.render('index', { title: 'Pirates' });
+  pirateCtrl.rhumForEveryone();
+});
+
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'Pirates' });
   pirateCtrl.findAll();

@@ -9,6 +9,7 @@ var db = mongoose.connection;
 	firstname: String, 
 	birth: Date,
 	weapon: String,
+	rhum: Number,
   });
 
    pirateSchema.methods.speak = function () {

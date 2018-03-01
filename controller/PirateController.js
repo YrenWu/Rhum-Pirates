@@ -11,6 +11,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 class PirateController {
 
+  rhumForEveryone() {
+  	Pirate.update({}, {$inc: {rhum :1}}, {upsert: true, multi: true}, (err, op) => {
+	  if (err) return console.error(err);
+	  console.log(op);
+  	})
+  }
+
   howMuch() {
     Pirate.aggregate([{ $group: { _id: '$weapon', count: {$sum: 1}}}], (err, weapons) => {
 	  if (err) return console.error(err);
@@ -43,12 +50,12 @@ class PirateController {
 
   enrolment() {
 
-  	//let saber = new Weapon({name: 'Saber', damage: 5});
+  	let saber = new Weapon({name: 'Saber', damage: 5});
   	let pirate = new Pirate({firstname : 'Charles', lastname: 'Vane', weapon: 'Knife' });
 
-  // 	saber.save(function (err, pirate) {
-	 //    if (err) return console.error(err);
-	 // });
+   	saber.save(function (err, pirate) {
+	    if (err) return console.error(err);
+	 });
 
   	pirate.save(function (err, pirate) {
 	    if (err) return console.error(err);
