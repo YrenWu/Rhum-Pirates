@@ -7,7 +7,6 @@ var db = mongoose.connection;
   var pirateSchema = mongoose.Schema({
 	lastname: String,
 	firstname: String, 
-	birth: Date,
 	weapon: String,
 	rhum: Number,
   });

@@ -7,6 +7,7 @@ var db = mongoose.connection;
   var weaponSchema = mongoose.Schema({
 	name: String,
 	damage: Number, 
+	durability: Number,
   });
 
 module.exports = weaponSchema;

@@ -2,8 +2,23 @@ const express = require('express');
 const router = express.Router();
 const PirateController = require('../controller/PirateController');
 const pirateCtrl = new PirateController();
+const WeaponController = require('../controller/WeaponController');
+const weaponCtrl = new WeaponController();
 
-/* GET home page. */
+
+router.get('/armory/:name([a-z]+)/:damages([0-9]+)', (req, res, next) => {
+  let name = req.params.name;
+  let damages = parseInt(req.params.damages);
+
+  weaponCtrl.make(name, damages);  	
+  res.render('index', { title: 'Armory' });
+
+});
+
+router.get('/armory', (req, res, next) => {
+	pirateCtrl.equip();
+	res.render('index', { title: 'Pirates' });
+});
 
 router.get('/how-much', (req, res, next) => {
   res.render('index', { title: 'Pirates' });
