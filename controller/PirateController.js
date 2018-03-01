@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const pirateSchema = require('../model/Pirate')
+const pirateSchema = require('../model/Pirate');
+const weaponSchema = require('../model/Weapon');
 const Pirate = mongoose.model('Pirate', pirateSchema);
+const Weapon = mongoose.model('Weapon', weaponSchema);
 
 mongoose.connect('mongodb://localhost/pj_mongoose');
 
@@ -26,11 +28,18 @@ class PirateController {
   };
 
   enrolment() {
-  	let pirate = new Pirate({firstname : 'Ann', lastname: 'Bonny', weapon: 'Saber' });
+
+  	let saber = new Weapon({name: 'Saber', damage: 5});
+  	let pirate = new Pirate({firstname : 'Ann', lastname: 'Bonny', weapon: saber });
+
+  	saber.save(function (err, pirate) {
+	    if (err) return console.error(err);
+	 });
+
   	pirate.save(function (err, pirate) {
 	    if (err) return console.error(err);
 	    pirate.speak();
-	 })
+	 });
   };
 
   kill(name) {
@@ -42,8 +51,9 @@ class PirateController {
 	});
   }
 
-  evolve() {
-  	Pirate.update({ _id: '5a97daf83c0f432c610fba4c' }, { $set: { lastname: 'Bonny', firstname: 'Ann' }}, (err, pirate) => {
+  evolve(id) {
+  	console.log(id);
+  	Pirate.update({ _id: id }, { $set: { lastname: 'Teach', firstname: 'Edward' }}, (err, pirate) => {
 	  if (err) return console.error(err);
 	  console.log(pirate);
 	});
