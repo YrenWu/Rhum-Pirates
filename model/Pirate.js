@@ -5,7 +5,8 @@ var db = mongoose.connection;
 
   // Create a mongo schema
   var pirateSchema = mongoose.Schema({
-	name: String, 
+	lastname: String,
+	firstname: String, 
 	birth: Date,
 	weapon: String,
   });
@@ -15,6 +16,10 @@ var db = mongoose.connection;
 	     ? "Ahoi, I'm " + this.name
 	     : "";
 	     console.log(greeting);
+   }
+
+   pirateSchema.methods.die = function () {
+   	console.log("Arrrrrghhhh!")
    }
   
 module.exports = pirateSchema;
