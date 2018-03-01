@@ -9,19 +9,16 @@ router.get('/', (req, res, next) => {
   pirateCtrl.findAll();
 });
 
-router.get('/rackham', (req, res, next) => {
-  res.render('index', { title: 'Pirate enrolment' });
-  pirateCtrl.findByName();
-});
-
 router.get('/join-piratry', (req, res, next) => {
   res.render('index', { title: 'Pirate enrolment' });
-  pirateCtrl.create();
+  pirateCtrl.enrolment();
 });
 
-router.get('/hanging', (req, res, next) => {
+router.get('/hanging/:name([a-z]+)', (req, res, next) => {
+  let name = req.params.name;
+
+  pirateCtrl.kill(name);
   res.render('index', { title: 'Pirate enrolment' });
-  pirateCtrl.kill();
 });
 
 router.get('/evolve', (req, res, next) => {
@@ -29,5 +26,11 @@ router.get('/evolve', (req, res, next) => {
   pirateCtrl.evolve();
 });
 
+router.get('/:name([a-z]+)', (req, res, next) => {
+  let name = req.params.name;
+  
+  pirateCtrl.findByName(name);
+  res.render('index', { title: 'Pirate enrolment' });
+});
 
 module.exports = router;

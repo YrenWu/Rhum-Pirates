@@ -8,6 +8,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 class PirateController {
+
   findAll() {
     Pirate.find({}, {_id: false, lastname: true, firstname: true, weapon: true}, (err, pirates) => {
 	  if (err) return console.error(err);
@@ -15,14 +16,16 @@ class PirateController {
 	})
   };
 
-  findByName() {
-    Pirate.find({lastname: 'Rackham'}, {_id: false, lastname: true, firstname: true, weapon: true}, (err, pirates) => {
+  findByName(name) {
+  	var regEx = new RegExp('^'+name,'i');
+
+    Pirate.find({lastname: regEx}, {_id: false, lastname: true, firstname: true, weapon: true}, (err, pirates) => {
 	  if (err) return console.error(err);
 	  console.log(pirates);
 	})
   };
 
-  create() {
+  enrolment() {
   	let pirate = new Pirate({firstname : 'Ann', lastname: 'Bonny', weapon: 'Saber' });
   	pirate.save(function (err, pirate) {
 	    if (err) return console.error(err);
@@ -30,8 +33,10 @@ class PirateController {
 	 })
   };
 
-  kill() {
-	Pirate.findOneAndRemove({lastname: 'Rackham'}, (err, pirate) => {
+  kill(name) {
+  	var regEx = new RegExp('^'+name,'i');
+
+	Pirate.findOneAndRemove({lastname: regEx}, (err, pirate) => {
 	  if (err) return console.error(err);
 	  console.log(pirate);
 	});
