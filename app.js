@@ -43,44 +43,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/pj_mongoose');
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-
-  // Create a mongo schema
-  var pirateSchema = mongoose.Schema({
-	name: String, 
-	birth: Date,
-	weight: Number,
-  });
-
-  pirateSchema.methods.speak = function () {
-	  var greeting = this.name
-	    ? "Ahoi, I'm " + this.name
-	    : "";
-	    console.log(greeting);
-  }
-  
-  // Create the collection
-  var Pirate = mongoose.model('Pirate', pirateSchema);
-
-  var rackham = new Pirate({ name: 'Rackham' });
-
-  // rackham.save(function (err, rackham) {
-  //   if (err) return console.error(err);
-  //   rackham.speak();
-  // });
-
-  Pirate.find({ name: /^Ra/i }, {_id: false, name: true}, (err, pirates) => {
-    if (err) return console.error(err);
-    console.log(pirates);
-  })
-
-});
-
-
-
 module.exports = app;

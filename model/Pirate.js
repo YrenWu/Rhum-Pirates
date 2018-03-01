@@ -5,10 +5,16 @@ var db = mongoose.connection;
 
   // Create a mongo schema
   var pirateSchema = mongoose.Schema({
-	lastname: String, 
-	firstname: String,
+	name: String, 
 	birth: Date,
-	weight: Number,
+	weapon: String,
   });
 
+   pirateSchema.methods.speak = function () {
+	   var greeting = this.name
+	     ? "Ahoi, I'm " + this.name
+	     : "";
+	     console.log(greeting);
+   }
+  
 module.exports = pirateSchema;
