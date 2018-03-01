@@ -11,6 +11,20 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 class PirateController {
 
+  howMuch() {
+    Pirate.aggregate([{ $group: { _id: '$weapon', count: {$sum: 1}}}], (err, weapons) => {
+	  if (err) return console.error(err);
+	  console.log(weapons);
+	}) 	
+  }
+
+  findByAsc() {
+    Pirate.find({}, {_id: false, lastname: true, firstname: true, weapon: true}, {sort: {lastname: 1}}, (err, pirates) => {
+	  if (err) return console.error(err);
+	  console.log(pirates);
+	})
+  }
+
   findAll() {
     Pirate.find({}, {_id: false, lastname: true, firstname: true, weapon: true}, (err, pirates) => {
 	  if (err) return console.error(err);
@@ -29,12 +43,12 @@ class PirateController {
 
   enrolment() {
 
-  	let saber = new Weapon({name: 'Saber', damage: 5});
-  	let pirate = new Pirate({firstname : 'Ann', lastname: 'Bonny', weapon: saber });
+  	//let saber = new Weapon({name: 'Saber', damage: 5});
+  	let pirate = new Pirate({firstname : 'Charles', lastname: 'Vane', weapon: 'Knife' });
 
-  	saber.save(function (err, pirate) {
-	    if (err) return console.error(err);
-	 });
+  // 	saber.save(function (err, pirate) {
+	 //    if (err) return console.error(err);
+	 // });
 
   	pirate.save(function (err, pirate) {
 	    if (err) return console.error(err);

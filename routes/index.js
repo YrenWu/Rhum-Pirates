@@ -4,6 +4,12 @@ const PirateController = require('../controller/PirateController');
 const pirateCtrl = new PirateController();
 
 /* GET home page. */
+
+router.get('/how-much', (req, res, next) => {
+  res.render('index', { title: 'Pirates' });
+  pirateCtrl.howMuch();
+});
+
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'Pirates' });
   pirateCtrl.findAll();
@@ -33,6 +39,11 @@ router.get('/:name([a-z]+)', (req, res, next) => {
 
   pirateCtrl.findByName(name);
   res.render('index', { title: 'On the sea : ' + name });
+});
+
+router.get('/on-the-bridge', (req, res, next) => {
+  pirateCtrl.findByAsc();
+  res.render('index', { title: 'Pirates on the bridge' });
 });
 
 module.exports = router;
